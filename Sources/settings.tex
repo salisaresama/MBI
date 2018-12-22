@@ -1,0 +1,139 @@
+%%%%%% TODO NOTES %%%%%%
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+\newcommandx{\change}[2][1=]{\todo[linecolor=blue,backgroundcolor=blue!25,bordercolor=blue,#1]{#2}}
+\newcommandx{\info}[2][1=]{\todo[linecolor=OliveGreen,backgroundcolor=OliveGreen!25,bordercolor=OliveGreen,#1]{#2}}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\thiswillnotshow}[2][1=]{\todo[disable,#1]{#2}}
+%% Example:
+%%%%%%\todo[inline]{The original todo note withouth changed colours.\newline Here's another line.}
+%%%%%%\unsure{Is this correct?}\unsure{I'm unsure about also!}
+%%%%%%\change{Change this!}
+%%%%%%\info{This can help me in chapter seven!}
+%%%%%%\improvement{This really needs to be improved!\newline\newline What was I thinking?!}
+%%%%%%\thiswillnotshow{This is hidden since option `disable' is chosen!}
+%%%%%%\improvement[inline]{The following section needs to be rewritten!}
+%%\newpage
+%%\listoftodos[Notes]
+
+\makeatletter
+%% Textclass specific LaTeX commands.
+\newenvironment{lyxlist}[1]
+{\begin{list}{}
+{\settowidth{\labelwidth}{#1}
+ \setlength{\leftmargin}{\labelwidth}
+ \addtolength{\leftmargin}{\labelsep}
+ \renewcommand{\makelabel}[1]{##1\hfil}}}
+{\end{list}}
+
+%% Larger cdot
+\newcommand*{\LargerCdot}{\raisebox{-0.25ex}{\scalebox{1.2}{$\cdot$}}}
+
+%% Algorithms
+% Define a \HEADER{Title} ... \ENDHEADER block
+\newcommand{\HEADER}[1]{\ALC@it\underline{\textsc{#1}}\begin{ALC@g}}
+\newcommand{\ENDHEADER}{\end{ALC@g}}
+\renewcommand*{\ALG@name}{Algoritmus}
+\algsetup{indent=2em} 
+\renewcommand{\algorithmiccomment}[1]{\hspace{2em}// #1} 
+
+
+%% Footnote style
+%\counterwithout{footnote}{section}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+%\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+%\footnote[num]{text}
+%instead of num you can put the number of the symbol you like:
+%1   asterisk    *   2   dagger  †   3   double dagger   ‡
+%4   section symbol  §   5   paragraph   ¶   6   parallel lines  \\
+%7   two asterisks   **  8   two daggers ††  9   two double daggers  ‡‡
+
+%% Definitory equality sign
+\newcommand\defeq{\mathrel{\stackrel{\makebox[0pt]{\mbox{\normalfont\tiny def.}}}{=}}}
+
+%% Drawing circles
+\newcommand{\tikzcircle}[2][black,fill=red]{\tikz[baseline=-0.5ex]\draw[#1,radius=#2] (0,0) circle ;}%
+\definecolor{mgcyan}{RGB}{0,255,255}
+\definecolor{mgmagenta}{RGB}{255,0,255}
+
+%% Use Times New Roman font for text and Belleek font for math
+%% Please make sure that the 'esint' package is turned off in the
+%% 'Math options' page.
+\usepackage[varg]{txfonts}
+
+%% Use Utopia text with Fourier-GUTenberg math
+%\usepackage{fourier}
+
+%% Bitstream Charter text with Math Design math
+%\usepackage[charter]{mathdesign}
+
+
+%% Make the multiline figure/table captions indent so that the second
+%% line "hangs" right below the first one.
+%\usepackage[format=hang]{caption}
+
+%% Indent even the first paragraph in each section
+\usepackage{indentfirst}
+
+%%---------------------------------------------------------------------
+
+%% Disable page numbers in the TOC. LOF, LOT (TOC automatically
+%% adds \thispagestyle{section} if not overriden
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\addtocontents{lof}{\protect\thispagestyle{empty}}
+%\addtocontents{lot}{\protect\thispagestyle{empty}}
+
+%% Shifts the top line of the TOC (not the title) 1cm upwards 
+%% so that the whole TOC fits on 1 page. Additional page size
+%% adjustment is performed at the point where the TOC
+%% is inserted.
+%\addtocontents{toc}{\protect\vspace{-1cm}}
+
+
+% completely avoid orphans (first lines of a new paragraph on the bottom of a page)
+\clubpenalty=9500
+
+% completely avoid widows (last lines of paragraph on a new page)
+\widowpenalty=9500
+
+% disable hyphenation of acronyms
+\hyphenation{CDFA HARDI HiPPIES IKEM InterTrack MEGIDDO MIMD MPFA DICOM ASCLEPIOS MedInria}
+
+%%---------------------------------------------------------------------
+
+%% Print out all vectors in bold type instead of printing an arrow above them
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Replace standard \cite by the parenthetical variant \citep
+%\renewcommand{\cite}{\citep}
+
+
+%% Theorem styles
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{exmp}{Example}[section]
+\newtheorem{thrm}{Theorem}[section]
+\newtheorem{remark}{Remark}[section]
+
+
+%% Norm definition
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+%% Norm definition
+\newcommand{\inprod}[1]{\left<#1\right>}
+
+%% Abs definition
+\newcommand{\abs}[1]{\left|#1\right|}
+
+%% Space after theorems
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+
+\makeatother
+
+%% Language and date
+%\def\documentdate{August 31, 2018}
+\def\documentdate{\today}
+\selectlanguage{czech}

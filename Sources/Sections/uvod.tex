@@ -1,18 +1,76 @@
-\section{Úvod}\label{sec:uvod}
+\section{Úvodní vztahy a definice}\label{sec:uvod}
 
 Floquetova teorie zkoumá lineární diferenciální rovnice tvaru  $\dot{\xi } = A(t) \xi$, které se obecně objevují při řešení úloh ve variacích jak pro autonomní, tak i pro neautonomní dynamické systémy. $A$ je v tomto případě periodická s periodou $T$ matice vyjádřující Jacobiho matici pravé strany $f(x)$ dynamického systému $\dot{x} = f(x)$.  Tato teorie poskytuje matematický aparát pro analýzu existence a stability periodických řešení.
 
-\section{Úvodní vztahy a definice}\label{sec:uvodni_vztahy}
+\medskip
+
+\begin{exmp}
+	Lineární obyčejná diferenciální rovnice (ODR) v $\mathbb{R}^{1}$: $\dot{\xi} = a(t)  \xi$, kde $a(t)$ je reálná funkce.
+	
+	\begin{itemize}
+		\item $a(t) = 1$ je periodická s libovolnou periodou $\implies$ řešení $\xi(t) = \xi_{0} \cdot e^{t}$ není  periodické.
+		\item $a(t) = \sin t^{2}$ je periodická s periodou $\pi$ $\implies$ řešení $\xi(t) = \xi_{0} \cdot e^{ \int_{t_{0}}^{t} \sin t^{2} dt }$ není periodické.
+	\end{itemize}
+
+	Tedy obecně periodicita matice $A(t)$ neimplikuje periodicitu řešení.
+\end{exmp}
+
+\medskip
 
 \begin{defn} (Fundamentální matice) \\
-	Nechť $(y_{1}, y_{2}, \dots y_{n})$ je systém řešení pro rovnici $\dot{\xi } = A(t) \xi$. Pokud $y_{1}, y_{2}, \dots y_{n}$ jsou lineárně nezávislé, pak matice 
+	Nechť $(y_{1}, y_{2}, \dots y_{n})$ je systém řešení pro rovnici $\dot{\xi } = A(t) \xi$. Pokud $y_{1}, y_{2}, \dots y_{n}$ jsou lineárně nezávislá, pak matice 
 	\begin{equation}
+		\Phi(t) = 
 		\begin{pmatrix} 
-			y_{1}^{1} & y_{2}^{1} & \dots & y_{n}^{1} \\ 
-			\vdots & \ddots & & \vdots \\ 
-			y_{1}^{n} & y_{2}^{n} & \dots & y_{n}^{n} 
+			y_{1}^{1}(x) & y_{2}^{1}(x) & \dots  & y_{n}^{1}(x) \\ 
+			\vdots &  \vdots & \ddots & \vdots \\ 
+			y_{1}^{d}(x) & y_{2}^{d}(x) & \dots & y_{n}^{d}(x) 
 		\end{pmatrix} 
 	\end{equation}
-	je fundamentální matice dynamického systému.
+	je fundamentální matice pro danou lineární diferenciální rovnici.
 \end{defn}
+
+\medskip
+
+\begin{lemma}\label{lm:1}
+	Nechť $\Phi(t)$ je fundamentální matice a $B$ je libovolná regulární matice. Potom $\Psi(t) = \Phi(t) \cdot B$ je také fundamentální matice.
+	
+	\begin{proof}
+		Tvrzení je patrné z faktu, že lineární kombinace řešení soustavy lineárních ODR je také řešení (viz předmět \textit{01DIFR}).
+	\end{proof}
+\end{lemma}
+
+\begin{lemma}\label{lm:2}
+	Označíme-li $W(t)$ Wronskián fundamentální matice $\Phi(t)$, pak $W(t) = W(t_{0}) \exp \big( {\int_{t_{0}}^{t}} \mathrm{tr}(A(s)) ds \big)$.
+	
+	\begin{proof}
+		Aplikujeme-li Taylorův rozvoj na $\Phi(t)$, dostaneme: 
+		
+		\begin{equation}\label{eq:lm2_taylor}
+			\begin{split}
+				\Phi(t) &= \Phi(t_{0}) + (t - t_{0}) \, \dot{\Phi}(t_{0}) + o(t-t_{0}) 
+				= 
+				\Phi(t_{0}) + (t - t_{0}) \, A(t_{0}) \Phi(t_{0}) + o(t-t_{0}) = \\
+				&= \Big( I + (t - t_{0}) \, A(t_{0}) \Big) \, \Phi(t_{0}) + o(t-t_{0}). 
+			\end{split}
+		\end{equation}
+		
+		Navíc víme, že Wronskián $W(t)$ je podle definice roven $\mathrm{det}(\Phi(t))$. Potom pomocí \eqref{eq:lm2_taylor} po zanedbání členů $o(t-t_{0})$ asymptotického rozvoje obdržíme:\footnote{Zde taky využijeme faktu, že stopa matice $A(t_{0})$ je první derivace ve směru determinantu $\mathrm{det} \Big( I + (t - t_{0}) \, A(t_{0}) \Big)$. Jinými slovy: $\mathrm{det} \Big( I + (t - t_{0}) \, A(t_{0}) \Big) = 1 + (t - t_{0}) \, \mathrm{tr} (A(t_{0})) + o(t-t_{0})$.}
+		
+		\begin{equation}\label{eq:lm2_wronskian}
+			\mathrm{det}(W(t))	= \mathrm{det} \Big( I + (t - t_{0}) \, A(t_{0}) \Big) \cdot \mathrm{det}(\Phi(t_{0})) 
+			=
+			\Big( 1 + (t - t_{0}) \, \mathrm{tr} (A(t_{0})) \Big) \cdot W(t_{0}) .
+		\end{equation}
+		
+		Na druhou stranu, Taylorův polynom prvního řádu pro Wronskián je roven $W(t) = W(t_{0}) + (t-t_{0}) \, \dot{W}(t_{0})$, a tedy z \eqref{eq:lm2_wronskian} dostaneme $\dot{W}(t_{0} ) =  \mathrm{tr} (A(t_{0})) \, W(t_{0})$. Tato rovnost je platná pro všechny hodnoty $t_{0}$, což implikuje
+		
+		\begin{equation}\label{eq:lm2_wronskian_ode}
+			\dot{W}(t) = \mathrm{tr} (A(t)) \, W(t).
+		\end{equation}
+		
+		Z řešení separovatelné ODR \eqref{eq:lm2_wronskian_ode} plyne tvrzení daného lemmatu.
+	\end{proof}
+\end{lemma}
+
 

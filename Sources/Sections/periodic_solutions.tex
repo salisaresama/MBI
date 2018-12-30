@@ -1,0 +1,110 @@
+\section{Matice monodromie a periodická řešení}\label{sec:monodromy_matrix_and_periodic_solutions}
+
+\begin{thrm}\label{thrm:monodromy_matrix}
+	Nechť matice $A(t)$ je $T$-periodická. Pokud $\Phi(t)$ je fundamentální, pak $\Phi(t+T)$ je také fundamentální a navíc existuje regulární konstantní matice $B$ taková, že platí následující dva body:
+	
+	\begin{enumerate}
+		\item $\Phi(t+T) = \Phi(t) \cdot B$;
+		\item $\mathrm{det} (B) = \exp \big( \int_{0}^{T} \mathrm{tr} (A(s)) ds \big) $.
+	\end{enumerate}
+
+	\begin{proof}
+		Nejdříve ukážeme, že $\Phi(t+T)$ je fundamentální: označíme-li $\Psi(t) \defeq \Phi(t+t)$, pak
+		
+		\begin{equation}
+			\dot{\Psi}(t) = \dot{\Phi}(t+T) = A(t+T) \Phi(t+T) = A(t) \Psi(t),
+		\end{equation}
+		
+		\noindent
+		což znamená, že $\Psi(t) = \Phi(t+T)$ je skutečně fundamentální.
+		
+		\medskip
+		
+		Dále bychom chtěli ukázat existenci matice $B$ a zbývající dva body tvrzení:
+		
+		\begin{enumerate}
+			\item Ze základů lineární algebry víme, že určitě existuje regulární matice $B(t)$, která splňuje bod $1$ pro různé hodnoty $t$. Chceme ukázat, že $B(t) = B(t_{0}) \defeq B_{0} = \mathrm{const}$ pro libovolné fixní $t_{0}$. Lemma \ref{lm:1} implikuje, že $\Psi_{0}(t) \defeq \Phi(t) B_{0}$ je fundamentální. Zároveň ale $\Psi(t_{0}) = \Phi(t_{0}) B(t_{0}) = \Phi(t_{0}) B_{0} = \Psi_{0}(t_{0})$ pro všechna $t_{0}$. Pak z věty o existenci a jednoznačnosti řešení lineární ODR plyne, že pro všechna $t$ platí:
+			
+			\begin{equation}
+				\Phi(t) B_{0} = \Psi_{0} (t) = \Psi (t) = \Phi (t) B(t) \implies B(t) = B_{0} = \mathrm{const}. 
+			\end{equation}
+			
+			\item Z prvního bodu jednoduše vyplývá, že $B = \Phi^{-1}(t) \Phi(t+T)$. Navíc pomocí lemmatu \ref{lm:2} dostaneme:
+			
+			\begin{equation}
+				W(t+T) = W(t_{0}) \exp \Big( \int_{t_{0}}^{t} \mathrm{tr} (A(s)) ds +  \int_{t}^{t+T} \mathrm{tr} (A(s)) ds \Big) = W(t) \exp \Big( \int_{t}^{t+T} \mathrm{tr} (A(s)) ds \Big)
+			\end{equation}
+			
+			Potom tedy platí následující: 
+			
+			\begin{equation}\label{eq:thrm1_prefinal}
+				\mathrm{det} (B) = \frac{1}{ \mathrm{det} (\Phi(t)) } \cdot \mathrm{det} (\Phi(t+T)) = \frac{1}{W(t)} \cdot W(t+T) = \exp \Big( \int_{t}^{t+T} \mathrm{tr} (A(s)) ds \Big).
+			\end{equation}
+			
+			Uděláme-li v \eqref{eq:thrm1_prefinal} substituci $ z = s - t $, dostaneme tvrzení bodu $2$.
+		\end{enumerate}
+	\end{proof}
+\end{thrm}
+
+\medskip
+
+\begin{remark}\label{remark:monodromy_matrix_calculation}
+	Pro jednoduchost výpočtu matice $B$ lze volit $t = 0$. Potom $B = \Phi^{-1}(0) \Phi(T)$, přičemž lineární nezávislost sloupců fundamentální matice $\Phi^{-1}(0)$ umožňuje zvolit takovou bázi prostoru, ve které $\Phi^{-1}(0) = I$. Potom $B = \Phi(T)$.
+\end{remark}
+
+\medskip
+
+\begin{defn} (Matice monodromie) \\
+	Matice $B$ z věty \ref{thrm:monodromy_matrix} se nazývá \textit{matice monodromie}, její vlastní čísla $\rho \in \sigma(B)$ se nazývají \textit{charakteristické multiplikátory}. Číslo $\lambda \in \mathbb{C}$ takové, že $\rho = e^{ \lambda t }$, $\rho \in \sigma(C)$, se nazývá \textit{charakteristický exponent}.
+\end{defn}
+
+\medskip
+
+\begin{remark}\label{remark:monodromy_matrix_properties}
+	(Vlastnosti matice monodromie)
+	
+	\begin{enumerate}
+		\item Za podmínky $X(0) = I $ podle poznámky \ref{remark:monodromy_matrix_calculation} dostáváme 
+		
+		\begin{itemize}
+			\item $\mathrm{det}(B) = \Pi_{i = 1}^{n} \rho_{i} = \exp \Big( \int_{0}^{T} \mathrm{tr} (A(s)) ds \Big)$;
+			
+			\item $\mathrm{tr}(B) = \sum_{i = 1}^{n} \rho_{i}$.
+		\end{itemize}
+		
+		\item Charakteristické exponenty nejsou dány jednoznačně: pokud $\lambda$ je charakteristický exponent, pak $\lambda + i \tfrac{2 \pi m}{T}$, $m \in \mathbb{Z}$, je také charakteristický exponent.
+		
+		\item Charakteristické multiplikátory nezávisí na výběru fundamentální matice.
+		
+		\begin{proof}
+			Nechť $\Phi(t)$ a $\hat{\Phi}(t)$ jsou dvě různé fundamentální matice. Potom podle věty \ref{thrm:monodromy_matrix} platí, že existují regulární konstantní matice $B$ a $\hat{B}$ takové, že $\Phi(t+T) = \Phi(t) B$ a $\hat{\Phi}(t+T) = \hat{\Phi}(t) \hat{B}$.  Z důkazu té samé věty navíc vyplývá, že existuje taková regulární konstantní matice $C$, že $\hat{\Phi}(t) = \Phi(t) C$, pak
+			
+			\begin{equation*}
+				\hat{\Phi}(t+T) = \Phi(t+T) C = \Phi(t) B C 
+				\wedge
+				\hat{\Phi}(t+T) = \hat{\Phi}(t) \hat{B} = \Phi(t) C \hat{B},
+			\end{equation*}
+			
+			\noindent
+			a tedy $\hat{B}  = C^{-1} B C$, tj. matice $\hat{B}$ a $B$ jsou podobné, a tudíž $\sigma(\hat{B}) = \sigma(B)$.
+		\end{proof}
+	\end{enumerate}
+\end{remark}
+
+\medskip
+
+%\begin{exmp}
+%	$$ 
+%	A = 
+%	\begin{pmatrix} 
+%		0 & \omega \\ 
+%		-\omega & 0
+%	\end{pmatrix}
+%	\implies
+%	e^{tA} = 
+%	\begin{pmatrix} 
+%	\cos \omega t & \sin \omega t \\ 
+%	-\sin \omega t & \cos \omega t
+%	\end{pmatrix}. 
+%	$$
+%\end{exmp}

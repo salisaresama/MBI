@@ -54,7 +54,8 @@
 
 \medskip
 
-\begin{defn} (Matice monodromie) \\
+\begin{defn}\label{defn:monodromy_matrix} 
+	(Matice monodromie) \\
 	Matice $B$ z věty \ref{thrm:monodromy_matrix} se nazývá \textit{matice monodromie}, její vlastní čísla $\rho \in \sigma(B)$ se nazývají \textit{charakteristické multiplikátory}. Číslo $\lambda \in \mathbb{C}$ takové, že $\rho = e^{ \lambda t }$, $\rho \in \sigma(C)$, se nazývá \textit{charakteristický exponent}.
 \end{defn}
 
@@ -108,3 +109,79 @@
 %	\end{pmatrix}. 
 %	$$
 %\end{exmp}
+
+\begin{thrm}\label{thrm:solution_properties}
+	Nechť $\rho$ je charakteristický multiplikátor a $\lambda$ je odpovídající mu charakteristický exponent. Potom existuje řešení $x(t)$ splňující následující:
+	
+	\begin{enumerate}
+		\item $x(t+T) = \rho x(t)$;
+		\item existuje $T$-periodická funkce $p(t)$ taková, že $x(t) = e^{ \lambda t } p(t)$.
+	\end{enumerate} 
+
+	\begin{proof}
+		Díky větě \ref{thrm:monodromy_matrix} a definici \ref{defn:monodromy_matrix} víme, že $\rho$ je vlastní číslo konstantní regulární matice $B$ - označíme pomocí $b \in \mathbb{R}^{n}$ odpovídající tomuto vztahu vlastní vektor, pak $x(t) \defeq \Phi(t)b$. Potom platí
+		
+		\begin{equation}
+			x(t+T) = \Phi(t+T) b = \{ \text{věta \ref{thrm:monodromy_matrix}} \} = \Phi(t) B b = \Phi(t) \rho b = \rho x(t), 
+		\end{equation}
+		
+		\noindent
+		což je tvrzení prvního bodu dané věty. Pro to, abychom dostali druhý bod, označíme $p(t) \defeq x(t) e^{ - \lambda t }$. Potřebujeme ukázat, že $p(t)$ má periodu $T$:
+		
+		\begin{equation}
+			p(t+T) = x(t+T) e^{ - \lambda (t+T) } = \rho x(t) e^{ - \lambda t } \underbrace{e^{- \lambda T}}_{ = \tfrac{1}{\rho} } = x(t) e^{ - \lambda t } = p(t),
+		\end{equation}
+		
+		\noindent
+		tj. $p(t)$ je $T$-periodická.
+	\end{proof}
+\end{thrm}
+
+\begin{remark}
+	(Důsledky věty \ref{thrm:solution_properties})
+	\begin{enumerate}
+		\item Nechť $N \in \mathbb{N}$, pak $x(t+NT) = \rho^{N} x(t)$:
+		
+		\begin{itemize}
+			\item pokud $\abs{\rho} < 1$, tj. $\mathrm{Re} (\lambda )< 0$, pak $x(t) \xrightarrow{t \rightarrow \infty} 0$;
+			
+			\item pokud $\abs{\rho} = 1$, tj. $\mathrm{Re} (\lambda) = 0$, pak $x(t)$ je \textit{pseudoperiodické} řešení (je periodické $\iff$ $\rho = \pm 1$ );
+			
+			\item pokud $\abs{\rho} > 1$, tj. $\mathrm{Re} (\lambda) > 0$, pak $x(t) \xrightarrow{t \rightarrow \infty} \infty$.
+		\end{itemize}
+	
+		\item Stabilita periodického řešení:
+		
+		mějme dynamický systém daný rovnicí $\dot{x} = f(x)$ s periodickým řešením $\phi(t) = \phi(t+T)$. Uděláme-li linearizaci kolem tohoto řešení, dostaneme úlohu $\dot{\xi} = A(t) \xi$, kde $A(t) = f^{\prime} (\phi(t))$ je $T$ - periodická. Navíc platí $\ddot{\phi} = f^{\prime}(\phi) \dot{\phi} = A(t) \dot{\phi}$, $\dot{\phi}$ je $T$-periodické řešení řešení linearizované úlohy. Tedy pro nelineární $f(x)$ vždy aspoň jeden charakteristický multiplikátor je roven $1$.
+		
+		\item Ve dvoudimenzionálním ($n = 2$) prostoru lze použít tzv. \textit{Bendixsonovo kritérium}, které poskytuje více informace o periodických řešeních v $\mathbb{R}^{2}$. Toto kritérium bude dále pouze vysloveno a dokázáno později v rámci předmětu \textit{01MMNS}.
+	\end{enumerate}
+\end{remark}
+
+\medskip
+
+\begin{thrm}\label{thrm:bendixson}
+	Nechť $f: \Gamma \rightarrow \mathbb{R}^{2}$, $\Gamma \subset \mathbb{R}^{2}$ je oblast, $f \in \mathrm{C}^{(1)}(\Gamma)$ a $\mathrm{dom}(f) \in \Gamma$ je jednoduše souvislá množina. Pokud výraz $\mathrm{div}(f)$ pro $x \in \mathrm{dom}(f)$ není identicky roven $0$ a na  $\mathrm{dom}(f)$ nemění znaménko, nemá úloha $\dot{x} = f(x)$ pro počáteční podmínku $x(0) = x_{\mathrm{ini}} \in \mathrm{dom}(f)$ periodické řešení s trajektoriemi ležícími zcela v $\mathrm{dom}(f)$.
+\end{thrm}
+
+\medskip
+
+\begin{exmp}\label{exmp:nonlinear_oscillator}
+	Nelineární oscilátor je popsán následující rovnici:
+	
+	\begin{equation}\label{eq:nonlinear_oscillator_1}
+		\ddot{\Theta} + p(\Theta) \dot{\Theta} + q(\Theta) = 0,
+	\end{equation}
+	
+	\noindent
+	kde $p$ a $q$ jsou hladké, $p(x) > 0$. Pomocí substituce $x_{1} = \Theta$, $x_{2} = \dot{\Theta}$ převedeme \eqref{eq:nonlinear_oscillator_1} na soustavu lineárních ODR:
+	
+	\begin{equation}\label{eq:nonlinear_oscillator_2}
+		\begin{split}
+			\dot{x}_{1} &= x_{2}, \\
+			\dot{x}_{2} &= -p(x_{1}) x_{2} - q(x_{1}).
+		\end{split}
+	\end{equation}
+	
+	Potom $\mathrm{div}(f(x)) = \underbrace{ \frac{ \partial x_{2} }{ \partial x_{1} } }_{ = 0 }  - p(x_{1}) < 0$. Věta \ref{thrm:bendixson} implikuje, že periodická řešení neexistují.
+\end{exmp}
